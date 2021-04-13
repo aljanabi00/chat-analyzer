@@ -1,33 +1,34 @@
+import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import F, Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
-
-from keras.preprocessing.sequence import pad_sequences
-from tensorflow.keras.preprocessing.text import Tokenizer
-from keras.preprocessing.text import Tokenizer
-import tensorflow
-
-from .models import Message
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
+from django.shortcuts import render
+from .forms import NewUserForm
+from django.contrib.auth import login
+from django.contrib import messages
+from .models import Message, Colab
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
-
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # List all users for chatting. Except myself.
-        context['users'] = User.objects.exclude(id=self.request.user.id)\
-                                       .values('username')
+        context['users'] = User.objects.exclude(id=self.request.user.id) \
+            .values('username')
         return context
 
 
 class ChatView(LoginRequiredMixin, TemplateView):
-
     template_name = 'chat.html'
 
     def dispatch(self, request, **kwargs):
@@ -63,14 +64,25 @@ class MessagesAPIView(View):
         return JsonResponse(list(result), safe=False)
 
 
-# To find the status of the message text
+# Register a new account
+@csrf_exempt
+def register_request(request):
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful.")
+            return render(request=request, template_name="registration/login.html")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+    form = NewUserForm
+    return render(request=request, template_name="registration/register.html", context={"register_form": form})
+
+
+# To find the status of the message text from colab API
 def analyze(texts):
-    model = tensorflow.keras.models.load_model('save.hdf5')
-    tokenizer = Tokenizer()
-    tokenizer.fit_on_texts(texts)
-    X = tokenizer.texts_to_sequences(texts)
-    sms_proc = pad_sequences(X, maxlen=50, padding='post')
-    pred = model.predict(sms_proc)
-    pred = pred.reshape([-1, 1, 1])
-    pred = (pred > 0.5).astype("int32")
-    return pred[0]
+    colab = Colab.objects.first()
+    url = f"{colab}{texts}"
+    status = requests.get(url)
+    result = status.json()
+    return result['message'][0]

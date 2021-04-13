@@ -40,6 +40,8 @@
   <input id="{{ form.password.id_for_label }}" name="{{ form.password.name }}" type="password" class="form-control mt-2" placeholder="Password" required>
   <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Enter</button>
   <input type="hidden" name="next" value="{{ next }}">
+	<p class="text-center">If you don't have an account, <a href="/signup">signup</a></p>
+
 </form>
 
 {% endblock %}

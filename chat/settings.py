@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'app',
+    'crispy_forms',
 ]
 
 # Configure Django App for Heroku.
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',

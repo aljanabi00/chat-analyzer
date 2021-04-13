@@ -3,7 +3,6 @@ from django.db import models
 
 
 class Message(models.Model):
-
     sender = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name='sender_messages')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE,
@@ -14,3 +13,10 @@ class Message(models.Model):
 
     def __str__(self):
         return '{} to {}'.format(self.sender.username, self.receiver.username)
+
+
+class Colab(models.Model):
+    url = models.URLField()
+
+    def __str__(self):
+        return self.url

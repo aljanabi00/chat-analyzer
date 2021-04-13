@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+<style media="screen">
+    .form-register {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: auto;
+    }
+    .form-register .checkbox {
+      font-weight: 400;
+    }
+    .form-register .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .form-register .form-control:focus {
+      z-index: 2;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+	<h1>Register</h1>
+	<form method="POST">
+		{% csrf_token %}
+		{{ register_form|crispy }}
+		<button class="btn btn-primary" type="submit">Register</button>
+	</form>
+	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+</div>
+
+{% endblock %}
