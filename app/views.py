@@ -81,8 +81,9 @@ def register_request(request):
 
 # To find the status of the message text from colab API
 def analyze(texts):
-    colab = Colab.objects.first()
-    url = f"{colab}{texts}"
-    status = requests.get(url)
-    result = status.json()
-    return result['message'][0]
+    return 1
+    # colab = Colab.objects.first()
+    # url = f"{colab}{texts}"
+    # status = requests.get(url)
+    # result = status.json()
+    # return result['message'][0]

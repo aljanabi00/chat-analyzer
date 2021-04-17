@@ -15,8 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import django_heroku
 
-# Configure Django App for Heroku.
-django_heroku.settings(locals())
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -44,9 +42,6 @@ INSTALLED_APPS = [
     'app',
     'crispy_forms',
 ]
-
-# Configure Django App for Heroku.
-# django_heroku.settings(locals())
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -126,6 +121,9 @@ USE_TZ = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
