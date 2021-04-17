@@ -85,4 +85,5 @@ def analyze(texts):
     url = f"{colab}{texts}"
     status = requests.get(url)
     result = status.json()
-    return result['message'][0]
+    status = result['message'][0]
+    return status[0]
