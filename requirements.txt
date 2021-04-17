@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-=======
 pip==21.0.1
 setuptools==50.3.0
 wheel==0.36.2
 absl-py==0.12.0
 aiohttp==3.7.1
->>>>>>> origin/main
 aioredis==1.3.1
 asgiref==3.3.4
 async-timeout==3.0.1
