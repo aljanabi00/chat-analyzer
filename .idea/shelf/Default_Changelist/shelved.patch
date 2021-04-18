@@ -1,0 +1,29 @@
+Index: Procfile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>web: daphne chat.asgi:application --port $PORT --bind 0.0.0.0\r\nworker: REMAP_SIGTERM=SIGQUIT celery worker --app chat.celery.app --loglevel info
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Procfile	(revision 45be50416c4d38ffdeee08f9665775d35e1024b3)
++++ Procfile	(date 1618754014563)
+@@ -1,2 +1,2 @@
+ web: daphne chat.asgi:application --port $PORT --bind 0.0.0.0
+-worker: REMAP_SIGTERM=SIGQUIT celery worker --app chat.celery.app --loglevel info
+\ No newline at end of file
++worker: REMAP_SIGTERM=SIGQUIT celery worker --app project.celery.app --loglevel info
+\ No newline at end of file
+Index: runtime.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>python-3.8.6
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- runtime.txt	(revision 45be50416c4d38ffdeee08f9665775d35e1024b3)
++++ runtime.txt	(date 1618753422752)
+@@ -1,1 +1,1 @@
+-python-3.8.6
+\ No newline at end of file
++python-3.9.0
+\ No newline at end of file
