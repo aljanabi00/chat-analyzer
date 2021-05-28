@@ -37,7 +37,7 @@
 <script type="text/javascript">
     $(function() {
         function addMessageToChat(data) {
-            if (data['status']===1){data['status']="positive"} else {data['status']="negative"}
+            if (data['status']===0){data['status']="negative"} else if (data['status']===1){data['status']="positive"} else {data['status']="under processing"}
             $("#chat-messages").append("<b>" + data['username'] + ", " + "status:" + data['status'] + "</b> <p>" + data['message'] + "</p><br>");
         };
 
